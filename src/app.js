@@ -1,60 +1,51 @@
-const app = require('express')();
+require('dotenv').config();
+const express = require('express');
+const morgan = require('morgan');
 const cors = require('cors');
-const proxy = require('express-http-proxy');
-const fetch = require('node-fetch')
-const NewsApi = require('newsapi')
+const helmet = require('helmet');
+const NewsApi = require('newsapi');
 
+const { NODE_ENV, API_KEY } = require('./config.js')
 
+const app = express();
 
-const {CLIENT_ORIGIN, API_KEY} = require('./config');
+const morganOption = (NODE_ENV === 'production')
+    ? 'tiny'
+    : 'common';
 
-
-app.use(
-    cors({
-        origin: CLIENT_ORIGIN
-    })
-)
-
-
-
-const newsapi = new NewsApi('a5b0fa76d282400d8c21da799e95fcd6');
-
-app.get('/news', (req, res) => {
-    newsapi.v2.everything({
-        q: 'software-engineering',
-        pageSize: 10,
-        language: 'en',
-    })
-    .then(response => {
-        console.log(response)
-    })
-
-})
-
-
+app.use(morgan(morganOption))
+app.use(helmet())
+app.use(cors())
 
 app.get('/', (req, res) => {
-    res.send('Hello, World!')
+    res.send('Hello, world!')
 })
 
-app.get('/api/news', (req, res) => {
-    res.send('News')
-    
+app.get('/news', (req, res) => {
+    const newsapi = new NewsApi(API_KEY);
 
+    newsapi.v2.everything({
+        q: 'software-engineering',
+        language: 'en',
+        pageSize: 10
+    })
+    .then(res => {
+        console.log(res)
+    })
 
-
-    
+    res.send(res)
 })
 
 
+app.use(function errorHandler(error, req, res, next){
+    let response 
+    if(NODE_ENV === 'production'){
+        response = { error: { message: 'server error'}}
+    } else {
+        console.error(error)
+        response = { message: error.message, error }
+    }
+    res.status(500).json(response)
+})
 
-
-const PORT = process.env.PORT || 3000;
-
-
-
-
-
-app.listen(PORT, () => console.log(`Listening on PORT:${PORT}`))
-
-module.exports = {app};
+module.exports = app;
