@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
     res.send('Hello, world!')
 })
 
-app.get('/news', (req, res) => {
+app.get('/news', (req, res, next) => {
     const newsapi = new NewsApi(API_KEY);
 
     newsapi.v2.everything({
@@ -29,11 +29,12 @@ app.get('/news', (req, res) => {
         language: 'en',
         pageSize: 10
     })
-    .then(res => {
-        console.log(res)
+    .then(articles => {
+        res.json(articles)
     })
+    .catch(next)
+    
 
-    res.send(res)
 })
 
 
