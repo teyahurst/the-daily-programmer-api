@@ -7,7 +7,7 @@ const NewsApi = require('newsapi');
 const NewsRouter = require('./news/news-router')
 const fetch = require('node-fetch')
 
-const { NODE_ENV, API_KEY } = require('./config.js')
+const { NODE_ENV, API_KEY, ARTICLES_ENDPOINT } = require('./config.js')
 
 const app = express();
 
@@ -48,9 +48,7 @@ app.get('/news', (req, res, next) => {
             }
 
             
-
-            
-            fetch('http://localhost:3000/articles', {
+            fetch(ARTICLES_ENDPOINT, {
               method: 'POST',
               headers: {
                   'content-type': 'application/json'
