@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const NewsApi = require('newsapi');
-const VotesRouter = require('./votes/votes-router')
 const NewsRouter = require('./news/news-router')
 const fetch = require('node-fetch')
 
@@ -69,8 +68,6 @@ app.get('/news', (req, res, next) => {
 
 
 app.use('/articles', NewsRouter)
-
-app.use('/votes', VotesRouter)
 
 
 app.use(function errorHandler(error, req, res, next){
