@@ -22,16 +22,19 @@
     "express": "^4.17.1",
     "express-http-proxy": "^1.6.2",
     "helmet": "^4.6.0",
+    "knex": "^0.95.8",
     "mocha": "^8.4.0",
     "morgan": "^1.10.0",
     "newsapi": "^2.4.1",
     "node-fetch": "^2.6.1",
+    "pg": "^8.7.1",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9"
   },
   "devDependencies": {
     "chai": "^4.3.4",
     "nodemon": "^2.0.7",
+    "postgrator-cli": "^3.2.0",
     "supertest": "^6.1.3"
   }
 }
