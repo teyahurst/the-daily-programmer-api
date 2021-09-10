@@ -7,7 +7,8 @@ const NewsApi = require('newsapi');
 const NewsRouter = require('./news/news-router')
 const fetch = require('node-fetch')
 
-const { NODE_ENV, API_KEY, ARTICLES_ENDPOINT } = require('./config.js')
+const { NODE_ENV, API_KEY } = require('./config.js');
+const NewsAPI = require('newsapi');
 
 const app = express();
 
@@ -24,45 +25,46 @@ app.get('/', (req, res) => {
 })
 
 app.get('/news', (req, res, next) => {
-    const newsapi = new NewsApi(API_KEY);
+    const newsapi = new NewsAPI(API_KEY);
 
     newsapi.v2.everything({
         q: 'software-engineering',
-        language: 'en',
-        pageSize: 10
+        language: 'en', 
+        pageSize: 10,
     })
-    .then(data=> {
-        res.json(data)
 
-        for(let i = 0; i < data.articles.length; i++){
+    
 
-     
-            const articles = {
-              article_url: data.articles[i].url,
-              title: data.articles[i].title,
-              urltoimage: data.articles[i].urlToImage,
-              likes: 0,
-              dislikes: 0,
-              content: data.articles[i].description,
-      
-            }
+.then(data=> {
+    res.json(data)
 
-            
-            fetch(ARTICLES_ENDPOINT, {
-              method: 'POST',
-              headers: {
-                  'content-type': 'application/json'
-              },
-              body: JSON.stringify(articles)
-            
-          
+    for(let i = 0; i < data.articles.length; i++){
+
+
+        const articles = {
+          article_url: data.articles[i].url,
+          title: data.articles[i].title,
+          urltoimage: data.articles[i].urlToImage,
+          likes: 0,
+          dislikes: 0,
+          content: data.articles[i].description,
+
+        }
+
+
+        fetch('http://localhost:8000/articles', {
+          method: 'POST',
+          headers: {
+              'content-type': 'application/json'
+          },
+          body: JSON.stringify(articles)
+
+
             })
         }
     })
-    
     .catch(next)
 })
-
 
 
 app.use('/articles', NewsRouter)
