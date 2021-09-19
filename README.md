@@ -1,26 +1,20 @@
-# Express Boilerplate!
+# The Daily Programmer
 
-This is a boilerplate project used for starting new projects!
+  Link to the live website: https://the-daily-programmer-client.vercel.app/
 
-## Set up
+  Link to the Api: https://github.com/teyahurst/the-daily-programmer-api
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+  Image of Home Page: https://cdn.discordapp.com/attachments/343458561986265090/885862383308898324/Screenshot_20210910-071853_Chrome.jpg
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+  Image of Pt 2 of Home Page: https://cdn.discordapp.com/attachments/343458561986265090/885862382352621598/Screenshot_20210910-071900_Chrome.jpg
 
-## Scripts
+  Image of Home Page with NavBar opened: https://cdn.discordapp.com/attachments/343458561986265090/885862381966753813/Screenshot_20210910-071906_Chrome.jpg
 
-Start the application `npm start`
+  Image of Public-Api page search results: https://cdn.discordapp.com/attachments/343458561986265090/885862381547311104/Screenshot_20210910-071921_Chrome.jpg
 
-Start nodemon for the application `npm run dev`
+  This app is developed with the use of seeing news results for software engineering and also has helpful infograms/cheatsheets for extra resources. It also has a search function in the public api page that will return results for free public apis that are available to the public.
 
-Run the tests `npm test`
-
-## Deploying
-
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's main branch.
+# Api documentation
+  The API has an endpoint that when you load the page it will submit a get request that makes a call to the NewsApi.org API it will then POST 
+  the response from the API to the SQL database and load them into the page. 
+  
